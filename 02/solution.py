@@ -14,15 +14,17 @@
 # 2. Any two adjacent numbers differ by at least 1 and at most 3
 
 # Just go through report with the logic
-with open('input.txt', 'r') as file:
-    lines = file.readlines()
+with open("input.txt", "r") as file:
+    lines = file.read().splitlines()
 
 from enum import Enum
 from typing import List
 
+
 class Direction(Enum):
     INCREASING = 1
     DECREASING = -1
+
 
 safeReportCount = 0
 for report in lines:
@@ -32,7 +34,7 @@ for report in lines:
     if len(levels) == 1:
         safeReportCount += 1
         continue
-    
+
     # If first and last level are the same, it is not safe
     if levels[0] == levels[-1]:
         continue
@@ -42,7 +44,7 @@ for report in lines:
         direction = Direction.DECREASING
     else:
         direction = Direction.INCREASING
-    
+
     # Go through each and see if it's safe
     isSafe = True
     previousLevel = levels[0]
@@ -60,7 +62,10 @@ for report in lines:
             isSafe = False
             break
 
-        if abs(currentLevel - previousLevel) < 1 or abs(currentLevel - previousLevel) > 3:
+        if (
+            abs(currentLevel - previousLevel) < 1
+            or abs(currentLevel - previousLevel) > 3
+        ):
             isSafe = False
             break
 
@@ -84,17 +89,17 @@ print(safeReportCount)
 #     # Singular levels are always safe
 #     if len(levels) == 1:
 #         return True
-    
+
 #     # If first and last level are the same, it is not safe
 #     if levels[0] == levels[-1]:
 #         return False
-    
+
 #     # Compare first and last level to get assumed direction
 #     if levels[0] > levels[-1]:
 #         direction = Direction.DECREASING
 #     else:
 #         direction = Direction.INCREASING
-    
+
 #     # Go through each and see if it's safe
 #     # If we have some allowedBadLevels, minus one and continue. Continuing skips setting prevLevel to current, so just skipping.
 #     previousLevel = levels[0]
@@ -146,6 +151,7 @@ print(safeReportCount)
 # 1 4 is valid, but 3 is invalid so we only try not adding 3...
 # hmm, just brute force
 
+
 def isSafeReport(levels: List[int]) -> bool:
     # Singular levels are always safe
     if len(levels) == 1:
@@ -158,7 +164,7 @@ def isSafeReport(levels: List[int]) -> bool:
         direction = Direction.DECREASING
     else:
         direction = Direction.INCREASING
-    
+
     # Go through each and see if it's safe
     # If we have some allowedBadLevels, minus one and continue. Continuing skips setting prevLevel to current, so just skipping.
     previousLevel = levels[0]
@@ -172,10 +178,14 @@ def isSafeReport(levels: List[int]) -> bool:
         else:
             return False
 
-        if abs(currentLevel - previousLevel) < 1 or abs(currentLevel - previousLevel) > 3:
+        if (
+            abs(currentLevel - previousLevel) < 1
+            or abs(currentLevel - previousLevel) > 3
+        ):
             return False
         previousLevel = currentLevel
     return True
+
 
 safeReportCount_2 = 0
 for report in lines:
@@ -184,7 +194,7 @@ for report in lines:
         safeReportCount_2 += 1
     else:
         for i in range(len(levels)):
-            if isSafeReport(levels[:i] + levels[i+1:]):
+            if isSafeReport(levels[:i] + levels[i + 1 :]):
                 safeReportCount_2 += 1
                 break
 print(safeReportCount_2)

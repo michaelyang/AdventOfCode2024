@@ -17,8 +17,8 @@
 
 from typing import Dict, List
 
-with open('input.txt', 'r') as file:
-    lines = file.readlines()
+with open("input.txt", "r") as file:
+    lines = file.read().splitlines()
 
 distanceSum = 0
 list1: List[int] = []
